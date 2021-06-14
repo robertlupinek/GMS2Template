@@ -1,7 +1,10 @@
-/// @desc Write save game data to file
-function read_save_game(argument0) {
+/// @function read_save_game(_save_filename )
+/// @desc Read save game data from file
+///	@param {filename} _save_filename	The filename of the save file ( allows for multiple saves ) 
+///	@param {ds_map}	_save_data_map		The ds_map that stores the save data
 
-	var _save_filename = argument0;
+function read_save_game(_save_filename ) {
+
 
 	if ( file_exists( _save_filename ) ){
 		//Load file to buffer then string

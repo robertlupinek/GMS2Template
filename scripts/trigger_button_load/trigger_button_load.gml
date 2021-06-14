@@ -1,4 +1,5 @@
-/// @description read in save game data
+/// @description Function triggered when load saved game button is pressed
+
 function trigger_button_load() {
 	// You can write your code in this editor
 
@@ -10,6 +11,4 @@ function trigger_button_load() {
 	read_save_game(global.save_file_name );
 	//Goto the room in the file
 	room_goto( asset_get_index(global.game_state_map[? "room"]) );
-
-
 }

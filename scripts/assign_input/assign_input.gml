@@ -1,4 +1,4 @@
-///Check to see if a player has joined and been assign a gamepad
+///	@description	Check to see if a player has joined and been assign a gamepad
 function assign_input() {
 	//Loop through the gamepads and keyboard ( index 9 is keyboard ;) )
 

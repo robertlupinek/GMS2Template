@@ -1,15 +1,18 @@
-/// @description Setup the button's configuration and position in the selection array global.buttons 
-function create_buttons(argument0, argument1, argument2, argument3, argument4, argument5, argument6, argument7, argument8) {
+/// @function						create_buttons(_image, _x, _y, _array_x, _array_y, _button_text, _selected, _mouse_type, _trigger_script)
+/// @description					Setup the button's configuration and position in the selection array global.buttons 
+///	@param {index} _image			Image you wish use for the button
+///	@param {real} _x				Where to draw the button on the screen
+///	@param {real} _y				Where to draw the button on the screen
+///	@param {real} _array_x			Where in the buttons array to put this button ( used to determine which button you have selected and how navigation works )
+///	@param {real} _array_y			Where in the buttons array to put this button ( used to determine which button you have selected and how navigation works )
+///	@param {string} _button_text	Text to draw ontop of button
+///	@param {boolean} _selected		If the button is the current selected button
+///	@param {boolean} _mouse_type	Does the button react to mouse input
+///	@param {script} _trigger_script	Script to trigger on button trigger
 
-	var _image = argument0;   //Image you wish use for the button
-	var _x = argument1;  //Where to draw the button on the screen
-	var _y = argument2;  //Where to draw the button on the screen
-	var _array_x = argument3; // Where in the buttons array to put this button 
-	var _array_y = argument4; // Where in the buttons array to put this button
-	var _button_text = argument5; //Text to draw ontop of button
-	var _selected = argument6;  //If the button is the current selected button
-	var _mouse_type = argument7;  //Does the button react to mouse input
-	var _trigger_script = argument8; //Script to trigger on button trigger
+function create_buttons(_image, _x, _y, _array_x, _array_y, _button_text, _selected, _mouse_type, _trigger_script) {
+
+
 
 	//Create and configure the button
 	var _button = instance_create_layer(_x,_y,"Instances",obj_button);

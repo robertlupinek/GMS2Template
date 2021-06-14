@@ -1,8 +1,11 @@
-///@description Get and return the center point between two points
-function center_camera(argument0, argument1) {
+/// @function				center_camera(_object, _camera)
+/// @description			Get and return the center point between two points
+///	@param {index} _object	The objects to use to find the center of
+///	@param {index} _camera	The camera object we are centering
+function center_camera(_object, _camera) {
 
-	var _object = argument0; //The objects to use to find the center of
-	var _camera = argument1; //The camera object we are centering
+///	@param {index} _object	The objects to use to find the center of. i.e. use obj_player to find the center of all player objects
+///	@param {index} _camera	The camera object we are centering
 
 	var _target = _object;
 	var _target2 = _object;

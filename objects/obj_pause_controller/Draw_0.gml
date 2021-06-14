@@ -9,9 +9,9 @@ ch = camera_get_view_height(camera);
 if ( paused )
 {
 	
-    //Draw the sprite we created from the view surface.
-    //We use a sprite because surfaces are volatile.
-    //For example, a minimize will destroy it.
+    // Draw the sprite we created from the view surface.
+    // We use a sprite because surfaces are volatile.
+    // For example, a minimize will destroy it.
     draw_sprite_ext(screen_sprite,0,cx,cy,1/global.camera_zoom,1/global.camera_zoom,0,c_white,1);
     draw_set_alpha(0.8);
     draw_set_color(c_black);

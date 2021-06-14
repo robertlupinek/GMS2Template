@@ -6,5 +6,4 @@ function clear_buttons() {
 	global.button_x = 0;
 	global.button_y = 0;
 
-
 }

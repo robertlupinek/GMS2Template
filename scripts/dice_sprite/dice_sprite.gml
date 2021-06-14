@@ -1,14 +1,11 @@
-function dice_sprite(argument0, argument1, argument2, argument3, argument4, argument5) {
-	//The purpose of this script is to create sprites out of other sprites, or little chunks
+/// @description The purpose of this script is to create little objects out of sprites, or little chunks of em for explosions and stuff.
+///	@param {index}	chunk_sprite	Sprite to slice and dice
+///	@param {real}	chunk_size		How big each chunk should be
+///	@param {real}	chunk_x_org		X Offset to start the slice process.  i.e. If sprite has a origin in the center set this value to a negative number that starts on the left of the sprite
+///	@param {real}	chunk_y_org		Y Offset to start the slice process.  i.e. If sprite has a origin in the center set this value to a negative number that starts on the top of the sprite
+///	@param {real}	chunk_type		Number representing the behavior of the object created.  Update doc when we create more then 1 behavior :)
 
-	//Chunk size
-	var chunk_sprite = argument0;
-	var chunk_size =   argument1;
-	var chunk_x_org =  argument2;
-	var chunk_y_org =  argument3;
-	var chunk_start_y = argument4;
-	var chunk_type = argument5;
-
+function dice_sprite(chunk_sprite, chunk_size, chunk_x_org, chunk_y_org, chunk_type) {
 
 	var chunk_r = floor( sprite_get_height(chunk_sprite) / chunk_size );
 	var chunk_c = floor( sprite_get_width(chunk_sprite) / chunk_size );
@@ -28,14 +25,10 @@ function dice_sprite(argument0, argument1, argument2, argument3, argument4, argu
 	        chunk.w = chunk_size;
 	        chunk.h = chunk_size;
     
-	        chunk.type = chunk_type;
-	        chunk.start_y = chunk_start_y - 2 + random(4);         
+	        chunk.type = chunk_type;        
 	        chunk.speed = 2 + random(1);
 	        chunk.direction = random(360);
 	    } 
 	}
  
-
-
-
 }

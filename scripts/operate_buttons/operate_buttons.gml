@@ -1,4 +1,5 @@
-/// Button Navigation and actions
+/// @description Function that is used to control the state of the buttons.  This will need to be run in the step event of any object that is used to create the butttons.
+
 function operate_buttons() {
 
 	//Loop through buttons
@@ -13,7 +14,6 @@ function operate_buttons() {
 			}
 		}
 	}
-
 
 	///Keyboard and controller selection handling
 	//Move down through the menu

@@ -1,4 +1,4 @@
-/// @description gather inputs and other fun things
+/// @description The game controller's step event controls input and game event status checks and settings.
 //
 
 //Gather input status for keyboard and gamepads

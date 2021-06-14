@@ -1,5 +1,8 @@
 {
-  "spriteId": null,
+  "spriteId": {
+    "name": "spr_game_pad",
+    "path": "sprites/spr_game_pad/spr_game_pad.yy",
+  },
   "solid": false,
   "visible": true,
   "spriteMaskId": null,

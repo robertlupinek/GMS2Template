@@ -1,6 +1,7 @@
-function check_mouse_over(argument0) {
-	//Check for mouse over
-	_target = argument0;
+/// @function check_mouse_over(_target)
+/// @description	Check if mouse x and y are over the bounding box of the _target object.
+///	@param {index}	_target	The object we are checking to see if we are "mousing over"
+function check_mouse_over(_target) {
 
 	_return = 0;
 	if ( mouse_x  > _target.bbox_left && mouse_x < _target.bbox_right )

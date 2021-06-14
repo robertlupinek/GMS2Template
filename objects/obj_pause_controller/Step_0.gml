@@ -1,17 +1,19 @@
-//Take over getting controlls input and manage buttons
+// Take over getting controlls input and manage buttons
 if ( paused ){
+	// Keep getting controls inputs and operating buttons while in pause loop.
+	// All other objects will be disabled so we need to take over any required functions here.
 	input_controls();
 	operate_buttons();
 }
 
 
-//Pause & unpause is triggered by this conditional 
+// Pause & unpause is triggered by this conditional 
 if ( global.any_start_pressed || unpause )
 {
-	//Stop anything other objects that trigger on mouse button
+	// Stop anything other objects that trigger on mouse button
     mouse_clear(mb_left); 
     
-	//If game is already paused then unpause it
+	// If game is already paused then unpause it
     if  ( paused )
     {
         paused = false
@@ -22,7 +24,7 @@ if ( global.any_start_pressed || unpause )
 			sprite_delete( screen_sprite);
 		}
 		
-		//Reset button configuration before creating new buttons
+		// Reset button configuration before creating new buttons
 		clear_buttons();
 		with(obj_button){
 			if ( button_text == "Resume" || button_text == "Quit" ){
@@ -34,15 +36,15 @@ if ( global.any_start_pressed || unpause )
     else
     {
 		paused = true;
-        //Create the sprite from the view surface.
-        //We use a sprite because surfaces are volatile.
-        //For example, a minimize will destroy it.        
+        // Create the sprite from the view surface.
+        // We use a sprite because surfaces are volatile.
+        // For example, a minimize will destroy it.        
         screen_sprite = sprite_create_from_surface(application_surface,0,0,surface_get_width(application_surface),surface_get_height(application_surface),false,false,0,0);
-		//Deactivate all instance, besides this one.
+		// Deactivate all instance, besides this one.
         instance_deactivate_all(true);
 		
-		///Create pause screen buttons
-		//Reset button configuration before creating new buttons
+		/// Create pause screen buttons
+		// Reset button configuration before creating new buttons
 		clear_buttons();		
 		camera = view_get_camera(0);
 		cx = camera_get_view_x(camera);

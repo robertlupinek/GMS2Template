@@ -1,23 +1,22 @@
-function check_outside_view(argument0, argument1, argument2, argument3, argument4, argument5, argument6, argument7, argument8) {
-	//outside_view
-	//Checks to see if described rectangle is outside 
-	//of the requested camera view and returns x if it is outside just the x.
-	//example:
-	////Check view 0 boundaries left, right, NOT top, bottom 
-	//check_outside_view(bbox_left,bbox_right,bbox_top,bbox_bottom,0,true,true,false,true);
-
-
-	var _x = argument0; //Left side of rectangle
-	var _y = argument1; //Top side of rectangle to check
-	var _x2 = argument2; //Right of rectangle
-	var _y2 = argument3; //Botton of rectangle
-	var _view = argument4; //Camera view to check against
+/// @function					check_outside_view(_x, _y,_x2, _y2, _view, _check_l, _check_t, _check_r, _check_b )
+/// @description				Checks to see if described rectangle is outside of the requested camera view and returns boolean
+/// example:
+/// Check view 0 boundaries left, right, NOT top, bottom 
+/// check_outside_view(bbox_left,bbox_right,bbox_top,bbox_bottom,0,true,true,false,true);
+///	@param {real}  _x			Left side of rectangle
+///	@param {real} _y			Top side of rectangle to check
+///	@param {real} _x2			Right side of rectangle
+///	@param {real} _y2			Botton of rectangle
+///	@param {real} _view			Camera view to check against
+	
 
 	//Provide which directions outside the view you want to check
-	var _check_l = argument5;
-	var _check_t = argument6;
-	var _check_r = argument7;
-	var _check_b = argument8;
+///	@param {boolean} _check_l	Check against left border of view
+///	@param {boolean} _check_t	Check against top border of view
+///	@param {boolean} _check_r	Check against right border of view
+///	@param {boolean} _check_b	Check against bottom border of view
+
+function check_outside_view(_x, _y,_x2, _y2, _view, _check_l, _check_t, _check_r, _check_b ) {
 
 	//Get the camera configuration
 	var _camera = view_get_camera(_view);
@@ -49,6 +48,4 @@ function check_outside_view(argument0, argument1, argument2, argument3, argument
 	}
 
 	return _outside;
-
-
 }
