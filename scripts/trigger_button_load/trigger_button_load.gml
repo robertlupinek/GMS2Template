@@ -10,5 +10,5 @@ function trigger_button_load() {
 	//Read in the save game data
 	read_save_game(global.save_file_name );
 	//Goto the room in the file
-	room_goto( asset_get_index(global.game_state_map[? "room"]) );
+	room_goto( asset_get_index(global.game_state.save_room ) );
 }

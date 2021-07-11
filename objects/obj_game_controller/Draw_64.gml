@@ -20,16 +20,16 @@ for ( var p = 0; p < 4; p++; ){
 		p_y = 10;
 	}
 	if ( p == 1 ){
-		p_x = 600;
+		p_x = 900;
 		p_y = 10;
 	}
 	if ( p == 2 ){
 		p_x = 10;
-		p_y = 480;
+		p_y = 620;
 	}
 	if ( p == 3 ){
-		p_x = 600;
-		p_y = 480;
+		p_x = 900;
+		p_y = 620;
 	}
 	draw_set_font(global.font_blue);
 	draw_set_halign(fa_left);

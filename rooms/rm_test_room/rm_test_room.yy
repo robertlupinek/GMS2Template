@@ -142,8 +142,8 @@
     "PhysicsWorldPixToMetres": 0.1,
   },
   "parent": {
-    "name": "Rooms",
-    "path": "folders/Rooms.yy",
+    "name": "shooter_test",
+    "path": "folders/Rooms/shooter_test.yy",
   },
   "resourceVersion": "1.0",
   "name": "rm_test_room",

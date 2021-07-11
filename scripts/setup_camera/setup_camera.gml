@@ -26,7 +26,7 @@ function setup_camera(_view, _zoom, _view_w, _view_h, _camera_target, _camera_bo
 	camera_set_view_border(_camera, _camera_border_x, _camera_border_y)
 	camera_set_view_size(_camera,_view_w/_zoom,_view_h/_zoom);
 
-	//Set the application surfact to the appropriate size
+	//Set the application surface to the desired size
 	surface_resize(application_surface, view_wport[0], view_hport[0]);
 
 	return _camera;

@@ -10,13 +10,13 @@ clear_buttons();
 if ( room_get_name(room) == "rm_main_menu" ) {
 	//Display Load Game and auto select IF the save game file exists
 	if ( file_exists( global.save_file_name ) ){
-		create_buttons(spr_big_button,237,138,0,0,"Load Game",true,false,trigger_button_load);
-		create_buttons(spr_big_button,237,188,0,1,"New Game",false,false,trigger_button_next);
-		create_buttons(spr_big_button,237,238,0,2,"Quit",false,false,trigger_button_quit);
+		create_buttons(spr_big_button,316,138,0,0,"Load Game",true,false,trigger_button_load);
+		create_buttons(spr_big_button,316,188,0,1,"New Game",false,false,trigger_button_next);
+		create_buttons(spr_big_button,316,238,0,2,"Quit",false,false,trigger_button_quit);
 	}
 	else {
-		create_buttons(spr_big_button,237,138,0,0,"New Game",true,false,trigger_button_next);
-		create_buttons(spr_big_button,237,188,0,1,"Quit",false,false,trigger_button_quit);
+		create_buttons(spr_big_button,316,138,0,0,"New Game",true,false,trigger_button_next);
+		create_buttons(spr_big_button,316,188,0,1,"Quit",false,false,trigger_button_quit);
 	}
 }
 else {
@@ -30,8 +30,8 @@ else {
 	create_buttons(spr_big_button,304,238,0,0,"mouse 1",false,true,trigger_button_debug);	
 }
 
-
-
+image_alpha = 0.5;
+alarm[0] = 30;
 
 
 

@@ -5,28 +5,25 @@
 
 function read_save_game(_save_filename ) {
 
-
 	if ( file_exists( _save_filename ) ){
 		//Load file to buffer then string
 		var _buffer = buffer_load(_save_filename );
 		var _buffer_string = buffer_read(_buffer,buffer_string);
 		//Create temporary ds_map from JSON object loaded from file.
-		var _json_map = json_decode(_buffer_string);
+		var _json_struct = json_parse(_buffer_string);
 		// Copy map with correct key from loaded JSON object to correct ds_map.
-		ds_map_copy( global.game_state_map, _json_map[? "game_state"]);
-		ds_map_copy( global.p1_map, _json_map[? "player_1"]);
-		ds_map_copy( global.p2_map, _json_map[? "player_2"]);
-		ds_map_copy( global.p3_map, _json_map[? "player_3"]);
-		ds_map_copy( global.p4_map, _json_map[? "player_4"]);
+		global.p1 = _json_struct.p1
+		global.p2 = _json_struct.p2
+		global.p3 = _json_struct.p3
+		global.p4 = _json_struct.p4
+		global.game_state.save_room = _json_struct.save_room
 	
 		show_debug_message("Game Loaded!");
-		show_debug_message(global.p1_map[? "max_hp"]);
-		show_debug_message(global.p2_map[? "max_hp"]);
-		show_debug_message(global.p3_map[? "max_hp"]);
-		show_debug_message(global.p4_map[? "max_hp"]);
-	
+		show_debug_message(global.p1.max_hp);
+		show_debug_message(global.p2.max_hp);
+		show_debug_message(global.p3.max_hp);
+		show_debug_message(global.p4.max_hp);			
 		return true;
-
 	}
 	else
 	{
