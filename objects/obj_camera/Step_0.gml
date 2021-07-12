@@ -5,9 +5,10 @@
 
 //Centers camera for multiple players
 
-center_camera(obj_player,id);
+center_camera(target,id);
 
 ///Camera effects
+
 
 //Screen shake
 camera_set_view_angle(camera, 0 )

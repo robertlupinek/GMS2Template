@@ -3,7 +3,7 @@
     "name": "spr_block_16x16",
     "path": "sprites/spr_block_16x16/spr_block_16x16.yy",
   },
-  "solid": true,
+  "solid": false,
   "visible": true,
   "spriteMaskId": null,
   "persistent": false,

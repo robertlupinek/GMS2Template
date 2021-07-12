@@ -6,6 +6,8 @@ function setup_game() {
 
     //Type of game to demo
 	global.game_type = "platformer"
+	
+	global.max_players = 4;
 
 	///Player Stats 
 	global.p1 = {
