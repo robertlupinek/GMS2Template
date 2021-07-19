@@ -8,6 +8,8 @@ function setup_game() {
 	global.game_type = "platformer"
 	
 	global.max_players = 4;
+	
+	global.debug = false;
 
 	///Player Stats 
 	global.p1 = {

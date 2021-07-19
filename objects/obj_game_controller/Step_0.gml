@@ -1,9 +1,8 @@
 /// @description The game controller's step event controls input and game event status checks and settings.
 //
 
-//Gather input status for keyboard and gamepads
-input_controls();
-spawn_player(90,200);
+
+spawn_player(90,100);
 
 //Set camera target 
 with(obj_camera){
