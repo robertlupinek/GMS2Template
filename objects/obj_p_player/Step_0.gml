@@ -20,7 +20,7 @@ if ( global.pad_right[my_pad] ){
 	xspeed += accelerate;
 }
 if ( global.pad_down[my_pad] ){
-
+	alarm[5] = 10;
 	image_speed = 1;
 }
 if ( global.pad_left[my_pad] ){
@@ -38,11 +38,10 @@ if ( global.pad_b2_pressed[my_pad] ){
 //If jump timer is going and jump state is ready OR the coyote timer and jump timer are good to go for a jump
 if ( ( jump_state.state || alarm[4] > 0 ) && alarm[3] > 0   ){
 	yspeed = -ground_state.jump_speed;
-	
 	if ( wall_state.state ){
 		xspeed = wall_state.xspeed*sign(-xspeed);
 	}
-	alarm[0] = 0;
+	alarm[3] = 0;
 	alarm[4] = 0;
 }
 
@@ -82,7 +81,40 @@ if ( xspeed < 0 ){
 //////////////////////////
 //Movement and collision
 //////////////////////////
-collisions = collide_wall(xspeed,yspeed,obj_block);
+
+
+//Jump through blocks
+var _wall_xspeed = 0;
+var _wall_yspeed = 0;
+var _jump_through_col = false;
+var _col = instance_place(x+xspeed,y+yspeed+1,obj_block_jump_through)
+if ( _col && alarm[5] <= 0 ){
+	if ( bbox_bottom <= _col.bbox_top + 4 && yspeed >= 0 ){
+
+		_jump_through_col = true; //Stops gravity from auto starting
+		collisions.col_bottom = true;
+		collisions.collision = true;
+		jump_state.state = 1;
+		ground_state.state= 1;
+		
+		//Make sure we are not colliding when setting 
+		var _top_y = _col.bbox_top - ( bbox_bottom - y ) -1;
+		//Moving platform check
+		if ( ! place_meeting(x + _col.hspeed,_top_y + _col.hspeed, obj_block ) ){
+			y = _top_y;
+			_wall_xspeed = _col.hspeed;
+			_wall_yspeed = _col.vspeed;
+			
+			//gravity_speed = 0;
+			yspeed = 0;
+				
+		}	
+	}
+}
+
+
+
+collisions = collide_wall(xspeed+_wall_xspeed,yspeed+_wall_yspeed,obj_block);
 if ( collisions.collision ){
     //If you collided horizontally
 	if ( collisions.col_right || collisions.col_left ) {
@@ -97,7 +129,7 @@ if ( collisions.collision ){
 		if collisions.col_right then collisions.col_hblock.col_left = true else collisions.col_hblock.col_right = true;
 		collisions.col_hblock.alarm[0] = 15;
 	}
-	//STOP the yspeed if you collided vertically AND stop gravity_speed if you hit the floor 
+	//STOP the yspeed if you collided vertically
 	if ( collisions.col_top || collisions.col_bottom  ) {
 		//Stop movement
 		yspeed = 0;
@@ -106,6 +138,12 @@ if ( collisions.collision ){
 		collisions.col_vblock.alarm[0] = 15;
 	}	
 }
+
+
+
+
+
+
 
 // Going down slopes
 /* BROKEN AND BLECH
@@ -125,17 +163,17 @@ if ( ! collisions.collision and yspeed >= 0){
 //Move normally if not colliding
 if ( ! ( collisions.col_right || collisions.col_left ) ) {
 	//Move player normally if no collsion detected
-	x += xspeed;
+	x += xspeed + _wall_xspeed;
 
 }
 if ( ! ( collisions.col_top || collisions.col_bottom ) ) {
 	yspeed += gravity_speed;
-	y += yspeed;	
+	y += yspeed + _wall_yspeed;	
 }
 	
 
 //Falling
-if ( !place_meeting(x,y+1,obj_block)){
+if ( !place_meeting(x,y+1,obj_block) && !_jump_through_col  ){
 	//We WERE on the ground no we are not.
 	//Set the timer to disallow jumping
 	if ( ground_state.state ){

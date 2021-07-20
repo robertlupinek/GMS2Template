@@ -61,8 +61,8 @@ yscale = 1;
 angle = 0;
 
 //Movement code
-jump_timer = 10;
-coyote_timer = 10;
+jump_timer = 5;
+coyote_timer = 5;
 accelerate = ground_state.accelerate;
 max_speed = 3;
 hfriction = 0.05;
