@@ -87,9 +87,10 @@ if ( xspeed < 0 ){
 var _wall_xspeed = 0;
 var _wall_yspeed = 0;
 var _jump_through_col = false;
-var _col = instance_place(x+xspeed,y+yspeed+1,obj_block_jump_through)
+
+var _col = instance_place(x+xspeed,y+yspeed+2,obj_block_jump_through)
 if ( _col && alarm[5] <= 0 ){
-	if ( bbox_bottom <= _col.bbox_top + 4 && yspeed >= 0 ){
+	if ( bbox_bottom <= _col.bbox_top  + 4 && yspeed >= 0 ){
 
 		_jump_through_col = true; //Stops gravity from auto starting
 		collisions.col_bottom = true;
@@ -120,11 +121,17 @@ if ( collisions.collision ){
 	if ( collisions.col_right || collisions.col_left ) {
 		//CONSIDER moving slope code to end of collide_wall function and just return if collision occured or not...
 		//Check for slopes we can navigate 
-		var _slope_collide = collide_slopes(xspeed,5,obj_block);
+		var _slope_collide = true;
+		//Only check for slopes if not jumping up.
+		//We treating platforms as slopes and teleporting up a bit :/
+		if ( yspeed >= 0 ){
+			_slope_collide = collide_slopes(xspeed,5,obj_block);
+		}
 		//Stop movement and potential movement if we end the testing of slopes in a collided state.
 		if ( _slope_collide ){
 			xspeed = 0;
 		}
+
 		//Temporary debug testing stuff ( next 2 lines )
 		if collisions.col_right then collisions.col_hblock.col_left = true else collisions.col_hblock.col_right = true;
 		collisions.col_hblock.alarm[0] = 15;
