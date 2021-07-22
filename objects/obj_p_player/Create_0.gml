@@ -4,16 +4,13 @@
 //Init the outline shader
 outline_init();
 
-
-
-
 ground_state= {
 	state		: 0,
 	hfriction	: 0.06,
 	vfriction	: 0,
 	accelerate : 0.1,
 	grav		: 0,
-	jump_speed	: 6
+	jump_speed	: 5
 }
 air_state =  {
 	state		: 0,

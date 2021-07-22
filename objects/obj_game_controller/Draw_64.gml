@@ -68,8 +68,6 @@ for ( var p = 0; p < 4; p++; ){
 
 }
 
-//draw_sprite_ext(spr_water_mark,0, 890, 440,1,1,0,c_white,0.2);
-
 //Draw a black square over the screen while we are waiting for the 
 //room transition in to start.
 if ( alarm[0] ){
