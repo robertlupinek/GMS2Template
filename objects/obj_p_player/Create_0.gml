@@ -13,15 +13,15 @@ ground_state= {
 	vfriction	: 0,
 	accelerate : 0.1,
 	grav		: 0,
-	jump_speed	: 4
+	jump_speed	: 6
 }
 air_state =  {
 	state		: 0,
 	hfriction	: 0.02,
 	vfriction	: 0,
 	accelerate : 0.05,
-	grav		: 0.1,
-	jump_speed	: 4
+	grav		: 0.2,
+	jump_speed	: 5
 }
 wall_state =  {
 	state		: 0,
@@ -30,7 +30,7 @@ wall_state =  {
 	accelerate : 0.1,
 	max_yspeed	: 1,
 	grav		: 0.05,
-	jump_speed	: 4,
+	jump_speed	: 5,
 	xspeed		: 1,
 }
 
@@ -77,13 +77,15 @@ alarm[0] = 240;
 
 //Collisions structure that stores collision state for the step
 collisions = {
-	collision : false,
-	col_right : false,
-	col_left : false,
-	col_top : false,
-	col_bottom : false,		
-	free_x : 0,
-	free_y : 0,
+	collision	: false, //Was there a collision at all?
+	col_right	: false, //Collision to the right detected
+	col_left	: false,  // Collision to the left detected
+	col_top		: false,   // Collision above detected
+	col_bottom	: false,// Collision below detected	
+	col_vblock	: -1,   // Id of the block collided vertically
+	col_hblock	: -1,    // Id of the block collided horizontally
+	col_xspeed	: 0,    //Horizontal speed of the moving platform
+	col_yspeed	: 0,     //Veritcal speed of the moving platform
 }
 
 //Just a silly thing to play a fake game of tag

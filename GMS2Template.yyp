@@ -23,7 +23,6 @@
     {"id":{"name":"spr_hp_heart","path":"sprites/spr_hp_heart/spr_hp_heart.yy",},"order":3,},
     {"id":{"name":"spr_player","path":"sprites/spr_player/spr_player.yy",},"order":0,},
     {"id":{"name":"obj_block_ymove_32x32","path":"objects/obj_block_ymove_32x32/obj_block_ymove_32x32.yy",},"order":6,},
-    {"id":{"name":"collide_slopes","path":"scripts/collide_slopes/collide_slopes.yy",},"order":2,},
     {"id":{"name":"spr_player_bullet","path":"sprites/spr_player_bullet/spr_player_bullet.yy",},"order":1,},
     {"id":{"name":"spr_explosion","path":"sprites/spr_explosion/spr_explosion.yy",},"order":1,},
     {"id":{"name":"spr_block_jump_through_32x32","path":"sprites/spr_block_jump_through_32x32/spr_block_jump_through_32x32.yy",},"order":2,},

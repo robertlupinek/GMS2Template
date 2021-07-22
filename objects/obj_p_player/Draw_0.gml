@@ -40,10 +40,7 @@ if ( alarm[0] ){
 	draw_text_transformed(x - 15,y-40,"P" + string(p_number + 1),1,1,1);
 }
 
-/*
-draw_text_transformed(x - 15,y-20,collisions.h_dir ,1,1,1);
-draw_text_transformed(x - 15,y-30,collisions.v_dir ,1,1,1);
 
-draw_text_transformed(x + 15,y-20,x ,1,1,1);
-draw_text_transformed(x + 15,y-30,y ,1,1,1);
-*/
+if global.debug then draw_text_transformed(x + 15,y-30,y ,1,1,1);
+if global.debug then draw_text_transformed(x + 15,y-20,alarm[3] ,1,1,1);
+
