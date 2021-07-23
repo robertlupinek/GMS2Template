@@ -6,6 +6,3 @@ if ( alarm[0] < 10 )
 }
 
 
-image_angle = rotate;
-
-

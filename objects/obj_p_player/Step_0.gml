@@ -39,8 +39,9 @@ if ( global.pad_b2_pressed[my_pad] ){
 	alarm[3] = jump_timer;
 }
 //If jump timer is going and jump state is ready OR the coyote timer and jump timer are good to go for a jump
-if ( ( jump_state.state || alarm[4] > 0 ) && alarm[3] > 0   ){
+if ( ( ( jump_state.state || jump_count > 0 ) || alarm[4] > 0 ) && alarm[3] > 0   ){
 	//y -= 5;
+	jump_count -= 1;
 	yspeed = -ground_state.jump_speed;
 	if ( wall_state.state ){
 		xspeed += wall_state.xspeed;
@@ -128,8 +129,10 @@ if ( ! collisions.col_ground ){
 	//Set jump state to state not ready ( if alarm[3] > 0 you can still jump )
 	//maybe move to alarm[3]?
 	jump_state.state = 0;
-} else {
+}  //Hit the ground
+else {
 	jump_state.state = 1;
+	jump_count = 2;
 	ground_state.state = 1;
 }
 

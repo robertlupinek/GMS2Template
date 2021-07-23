@@ -58,6 +58,7 @@ yscale = 1;
 angle = 0;
 
 //Movement code
+jump_count = 2;
 jump_timer = 5;
 coyote_timer = 5;
 accelerate = ground_state.accelerate;

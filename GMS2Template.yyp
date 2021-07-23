@@ -18,6 +18,7 @@
     {"id":{"name":"spr_game_title","path":"sprites/spr_game_title/spr_game_title.yy",},"order":1,},
     {"id":{"name":"spr_big_button","path":"sprites/spr_big_button/spr_big_button.yy",},"order":1,},
     {"id":{"name":"obj_block_jump_through_32x32","path":"objects/obj_block_jump_through_32x32/obj_block_jump_through_32x32.yy",},"order":4,},
+    {"id":{"name":"obj_block_break_away_32x32","path":"objects/obj_block_break_away_32x32/obj_block_break_away_32x32.yy",},"order":9,},
     {"id":{"name":"spr_water_mark","path":"sprites/spr_water_mark/spr_water_mark.yy",},"order":1,},
     {"id":{"name":"collide_walls","path":"scripts/collide_walls/collide_walls.yy",},"order":1,},
     {"id":{"name":"spr_hp_heart","path":"sprites/spr_hp_heart/spr_hp_heart.yy",},"order":3,},

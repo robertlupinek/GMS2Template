@@ -11,5 +11,3 @@ image_speed = 0;
 alarm[0] = 30;
 
 color = c_white;
-
-rotate = random(15);

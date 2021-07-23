@@ -25,9 +25,17 @@ function dice_sprite(_chunk_sprite, _chunk_size, _chunk_x_org, _chunk_y_org, _ch
 	        chunk.w = _chunk_size;
 	        chunk.h = _chunk_size;
     
-	        chunk.type = _chunk_type;        
-	        chunk.speed = 2 + random(1);
-	        chunk.direction = random(360);
+			if ( _chunk_type == 0 ){
+		        chunk.type = _chunk_type;        
+		        chunk.speed = 2 + random(1);
+		        chunk.direction = random(360);
+			}
+			if ( _chunk_type == 1 ){
+		        chunk.type = _chunk_type;        
+		        chunk.gravity = 0.1+random(0.2);
+				chunk.image_angle = 358 + random(4);
+				chunk.gravity_direction = 270;
+			}			
 	    } 
 	}
  

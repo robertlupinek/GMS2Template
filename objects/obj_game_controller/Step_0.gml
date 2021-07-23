@@ -2,7 +2,7 @@
 //
 
 
-spawn_player(90,100);
+spawn_player(90,80);
 
 //Set camera target 
 with(obj_camera){
