@@ -6,9 +6,9 @@ outline_init();
 
 ground_state= {
 	state		: 0,
-	hfriction	: 0.06,
+	hfriction	: 0.2,
 	vfriction	: 0,
-	accelerate : 0.1,
+	accelerate : 0.5,
 	grav		: 0,
 	jump_speed	: 5
 }
@@ -58,11 +58,12 @@ yscale = 1;
 angle = 0;
 
 //Movement code
-jump_count = 2;
+jump_count_max = 1;
+jump_count = jump_count_max;
 jump_timer = 5;
 coyote_timer = 5;
 accelerate = ground_state.accelerate;
-max_speed = 3;
+max_speed = 2;
 hfriction = 0.05;
 xspeed = 0;
 yspeed = 0;

@@ -38,23 +38,40 @@ if ( global.pad_left[my_pad] ){
 if ( global.pad_b2_pressed[my_pad] ){
 	alarm[3] = jump_timer;
 }
-//If jump timer is going and jump state is ready OR the coyote timer and jump timer are good to go for a jump
-if ( ( ( jump_state.state || jump_count > 0 ) || alarm[4] > 0 ) && alarm[3] > 0   ){
-	//y -= 5;
-	jump_count -= 1;
-	yspeed = -ground_state.jump_speed;
-	if ( wall_state.state ){
-		xspeed += wall_state.xspeed;
-		wall_state.state = false;
+
+if (  alarm[3] > 0   ){
+	// Normal jumping
+	//If jump state is ready OR the coyote timer 
+	if ( jump_state.state   || alarm[4] > 0 ){
+		yspeed -= ground_state.jump_speed;
+		//Fling off the wall if on the wall
+		if ( wall_state.state ){
+			xspeed += wall_state.xspeed;
+			wall_state.state = false;
+		}
+		alarm[3] = 0;
+		alarm[4] = 0;
 	}
-	alarm[3] = 1;
-	alarm[4] = 0;
+	//Double jumping
+	//  we could not jump normally and Coyote timer is not going
+	if ( ! jump_state.state && alarm[4] <= 0  && jump_count > 0 ){
+		jump_count -= 1;
+		yspeed = -ground_state.jump_speed;
+		//Fling off the wall if on the wall
+		if ( wall_state.state ){
+			xspeed += wall_state.xspeed;
+			wall_state.state = false;
+		}
+		alarm[3] = 0;
+		alarm[4] = 0;
+	}
+	
 }
 
 
 //Limit horizontal and vertical speeds
 yspeed = clamp(yspeed,-10,10);
-xspeed = clamp(xspeed,-3,3);
+xspeed = clamp(xspeed,-max_speed,max_speed);
 
 //Slow horizontal movement based on the current friction
 if ( xspeed > 0 ){
@@ -74,9 +91,31 @@ if ( xspeed < 0 ){
 //Movement and collision
 //////////////////////////
 
+//Apply gravity
+yspeed += gravity_speed;
+
+var col_xspeed = 0;
+var col_yspeed = 0;
+if ( collisions.col_hblock ){
+	col_xspeed = collisions.col_hblock.xspeed;
+	col_yspeed = collisions.col_hblock.yspeed;	
+}
+if ( collisions.col_vblock ){
+	col_xspeed = collisions.col_vblock.xspeed;
+	col_yspeed = collisions.col_vblock.yspeed;	
+}
+
+//Keep moving platforms from sticking you to a the wall
+//What they will do is negate your xspeed, collide you, and that will set your xspeed to 0 again repeat rinse
+if ( abs(xspeed) > 0 && abs(col_xspeed) >= abs(xspeed) && collisions.col_hblock){
+	if ( ! place_meeting(x+abs(col_xspeed),y,obj_block) ){
+		xspeed+=abs(-col_xspeed);
+	}
+}
+
 ///
 // "Solid" wall collisions and slopes
-collisions = collide_wall(xspeed,yspeed,5,obj_block,obj_block_jump_through);
+collisions = collide_wall(xspeed+col_xspeed,yspeed+col_yspeed,5,obj_block,obj_block_jump_through);
 if ( collisions.collision ){
     //If you collided horizontally
 	if ( ( collisions.col_right || collisions.col_left )  ) {
@@ -85,8 +124,8 @@ if ( collisions.collision ){
 		if ( alarm[3] <= 0 ){
 			xspeed = 0;
 		}
-		// Temporary debug testing stuff ( next 2 lines 
 		if ( collisions.col_hblock ){
+			// Temporary debug testing stuff ( next 2 lines 
 			if collisions.col_right then collisions.col_hblock.col_left = true else collisions.col_hblock.col_right = true;
 			collisions.col_hblock.alarm[0] = 15;
 		}
@@ -95,28 +134,16 @@ if ( collisions.collision ){
 	if ( collisions.col_top || collisions.col_bottom  ) {
 		// Stop vertical movement
 		yspeed = 0;
-		// Temporary debug testing stuff ( next 2 lines )
 		if ( collisions.col_vblock ){
+			// Temporary debug testing stuff ( next 2 lines )
 			if collisions.col_top then collisions.col_vblock.col_bottom = true else collisions.col_vblock.col_top = true;
 			collisions.col_vblock.alarm[0] = 15;
 		}
 	}	
 }
 
-// Move normally if not colliding
-if ( ! ( collisions.col_right || collisions.col_left ) ) {
-	//Move player according to it's xspeed and the xspeed of any moving platforms you are in contact with.
-	x += xspeed + collisions.col_xspeed;;
-}
-if ( ! ( collisions.col_top || collisions.col_bottom ) ) {
-	// Add the current gravity speed before 
-	yspeed += gravity_speed;
-	//Move player according to it's yspeed and the yspeed of any moving platforms you are in contact with.
-	y += yspeed + collisions.col_yspeed;	
-}
-
 //Falling
-if ( ! collisions.col_ground ){
+if ( ! collisions.col_bottom ){
 	//We WERE on the ground no we are not.
 	//Set the timer to disallow jumping
 	if ( ground_state.state ){
@@ -125,15 +152,16 @@ if ( ! collisions.col_ground ){
 	//Turn on gravity cause you are floating in the air :)
 	gravity_speed = air_state.grav;
 	//Set state to not on the ground
-	ground_state.state = 0;
+	ground_state.state = false;
 	//Set jump state to state not ready ( if alarm[3] > 0 you can still jump )
 	//maybe move to alarm[3]?
-	jump_state.state = 0;
+	jump_state.state = false;
 }  //Hit the ground
 else {
-	jump_state.state = 1;
-	jump_count = 2;
-	ground_state.state = 1;
+	//Reset the jump counter if just landing
+	jump_count = jump_count_max;
+	jump_state.state = true;
+	ground_state.state = true;
 }
 
 
@@ -152,10 +180,10 @@ if ( ground_state.state) {
 	accelerate = ground_state.accelerate;
 	gravity_speed= ground_state.grav;
 	//Reset wall state
-	wall_state.state = 0;
+	wall_state.state = false;
 }
 //// In the air
-if ( !ground_state.state){
+if ( ! ground_state.state){
 
 	// Jumping up
 	if( yspeed <= 0 ){
@@ -169,7 +197,7 @@ if ( !ground_state.state){
 	hfriction = air_state.hfriction;
 	accelerate = air_state.accelerate;
 	gravity_speed= air_state.grav;	
-	
+
 	//Reset wall state
 	wall_state.state = false;
 	// Wall Slide :) 
@@ -185,8 +213,9 @@ if ( !ground_state.state){
 		}
 	}
 	if ( alarm[6] > 0 ){
-		wall_state.state = 1;
-		jump_state.state = 1;
+		jump_count = jump_count_max;		
+		jump_state.state = true;
+		wall_state.state = true;
 		//SLIIIIIIDDDDDDIIIIINNNGGGGG
 		if ( yspeed > 0 ){
 			hfriction = wall_state.hfriction;

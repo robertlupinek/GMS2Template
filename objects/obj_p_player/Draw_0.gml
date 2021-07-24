@@ -41,6 +41,6 @@ if ( alarm[0] ){
 }
 
 
-if global.debug then draw_text_transformed(x + 15,y-30,y ,1,1,1);
-if global.debug then draw_text_transformed(x + 15,y-20,alarm[3] ,1,1,1);
+if global.debug then draw_text_transformed(x + 15,y-30,xspeed ,1,1,1);
+if global.debug then draw_text_transformed(x + 15,y-20,jump_state.state,1,1,1);
 

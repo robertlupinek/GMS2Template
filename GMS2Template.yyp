@@ -51,6 +51,7 @@
     {"id":{"name":"outline_start_surface","path":"scripts/outline_start_surface/outline_start_surface.yy",},"order":7,},
     {"id":{"name":"spr_block_16x16","path":"sprites/spr_block_16x16/spr_block_16x16.yy",},"order":0,},
     {"id":{"name":"obj_block_spring_32x32","path":"objects/obj_block_spring_32x32/obj_block_spring_32x32.yy",},"order":8,},
+    {"id":{"name":"obj_block_solid_ymove_32x32","path":"objects/obj_block_solid_ymove_32x32/obj_block_solid_ymove_32x32.yy",},"order":10,},
     {"id":{"name":"spr_player_walk","path":"sprites/spr_player_walk/spr_player_walk.yy",},"order":2,},
     {"id":{"name":"outline_end","path":"scripts/outline_end/outline_end.yy",},"order":9,},
     {"id":{"name":"backup","path":"scripts/backup/backup.yy",},"order":5,},
