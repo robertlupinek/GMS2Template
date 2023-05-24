@@ -1,10 +1,7 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-//Init the outline shader
-outline_init();
-
-ground_state= {
+ground_set = {
 	state		: 0,
 	hfriction	: 0.2,
 	vfriction	: 0,
@@ -12,7 +9,7 @@ ground_state= {
 	grav		: 0,
 	jump_speed	: 5
 }
-air_state =  {
+air_set =  {
 	state		: 0,
 	hfriction	: 0.02,
 	vfriction	: 0,
@@ -20,7 +17,7 @@ air_state =  {
 	grav		: 0.2,
 	jump_speed	: 5
 }
-wall_state =  {
+wall_set=  {
 	state		: 0,
 	hfriction	: 0,
 	vfriction	: 0,
@@ -31,9 +28,7 @@ wall_state =  {
 	xspeed		: 1,
 }
 
-jump_state = {
-	state : 0	
-}
+jumping = 0;
 
 
 my_sprites= {
@@ -62,7 +57,7 @@ jump_count_max = 1;
 jump_count = jump_count_max;
 jump_timer = 5;
 coyote_timer = 5;
-accelerate = ground_state.accelerate;
+accelerate = ground_set.accelerate;
 max_speed = 2;
 hfriction = 0.05;
 xspeed = 0;
@@ -83,8 +78,6 @@ collisions = {
 	col_bottom	: false,// Collision below detected	
 	col_vblock	: -1,   // Id of the block collided vertically
 	col_hblock	: -1,    // Id of the block collided horizontally
-	col_xspeed	: 0,    //Horizontal speed of the moving platform
-	col_yspeed	: 0,     //Veritcal speed of the moving platform
 }
 
 //Just a silly thing to play a fake game of tag
@@ -95,3 +88,7 @@ max_hp = 1;
 hp = 1;
 
 
+//Shader Code
+
+//Init the outline shader
+outlineShaderInit();

@@ -39,6 +39,10 @@ for (var i = 0; i <= 20; i++;)
 				draw_text(xx, yy + 120, "Hat -" + string(ii) + " Value -"+ string(gamepad_hat_value(i, ii)) );  
 			}
 		}			
+		
+		
+
+		
 		counter +=1;
     }
 }

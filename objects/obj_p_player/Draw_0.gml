@@ -30,11 +30,11 @@ if ( it ){
 	outline_color = c_white;	
 }
 
-if 1 == 1 then outline_start(1,outline_color);
+if 1 == 1 then outlineShaderStart(1,outline_color);
 
 draw_sprite_ext(sprite_index,-1,x,y,xscale,yscale,angle,c_white,1);
 
-if 1 == 1 then outline_end();
+if 1 == 1 then outlineShaderEnd();
 
 if ( alarm[0] ){
 	draw_text_transformed(x - 15,y-40,"P" + string(p_number + 1),1,1,1);

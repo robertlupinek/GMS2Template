@@ -1,7 +1,7 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-assign_input();
+assignInput();
 
 for (var _p=0;_p < array_length_1d(global.p_pad);_p++){
 

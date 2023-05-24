@@ -5,7 +5,7 @@
 
 //Centers camera for multiple players
 
-center_camera(target,id);
+centerCamera(target,id);
 
 ///Camera effects
 

@@ -14,6 +14,6 @@ with(other){
 	
 }
 
-dice_sprite(sprite_index,16,x - sprite_xoffset,y - sprite_yoffset,0);
+diceSprite(sprite_index,16,x - sprite_xoffset,y - sprite_yoffset,0);
 instance_destroy();
 

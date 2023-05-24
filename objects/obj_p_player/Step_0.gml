@@ -9,24 +9,25 @@ my_pad = global.p_pad[p_number];
 /////////////////
 //Handle inputs
 /////////////////
-if ( global.pad_up[my_pad] ){ 
+
+if ( global.pad_up[my_pad] || global.pad_d_up[my_pad] ){ 
 
 	image_speed = 1;
 }
-if ( global.pad_right[my_pad] ){
-	if ( ! wall_state.state){
+if ( global.pad_right[my_pad] || global.pad_d_right[my_pad] ){
+	if ( ! wall_set.state){
 		xscale = 1;
 	}
 	image_speed = 1;
 	xspeed += accelerate;
 }
-if ( global.pad_down[my_pad] ){
+if ( global.pad_down[my_pad] || global.pad_d_down[my_pad] ){
 	//Jump down through jump through blocks
 	alarm[5] = 10;
 	image_speed = 1;
 }
-if ( global.pad_left[my_pad] ){
- 	if ( ! wall_state.state){
+if ( global.pad_left[my_pad] || global.pad_d_left[my_pad] ){
+ 	if ( ! wall_set.state){
 		xscale = -1;
 	}
 	image_speed = 1;
@@ -42,25 +43,25 @@ if ( global.pad_b2_pressed[my_pad] ){
 if (  alarm[3] > 0   ){
 	// Normal jumping
 	//If jump state is ready OR the coyote timer 
-	if ( jump_state.state   || alarm[4] > 0 ){
-		yspeed -= ground_state.jump_speed;
+	if ( jumping  || alarm[4] > 0 ){
+		yspeed -= ground_set.jump_speed;
 		//Fling off the wall if on the wall
-		if ( wall_state.state ){
-			xspeed += wall_state.xspeed;
-			wall_state.state = false;
+		if ( wall_set.state ){
+			xspeed += wall_set.xspeed;
+			wall_set.state = false;
 		}
 		alarm[3] = 0;
 		alarm[4] = 0;
 	}
 	//Double jumping
 	//  we could not jump normally and Coyote timer is not going
-	if ( ! jump_state.state && alarm[4] <= 0  && jump_count > 0 ){
+	if ( ! jumping&& alarm[4] <= 0  && jump_count > 0 ){
 		jump_count -= 1;
-		yspeed = -ground_state.jump_speed;
+		yspeed = -ground_set.jump_speed;
 		//Fling off the wall if on the wall
-		if ( wall_state.state ){
-			xspeed += wall_state.xspeed;
-			wall_state.state = false;
+		if ( wall_set.state ){
+			xspeed += wall_set.xspeed;
+			wall_set.state = false;
 		}
 		alarm[3] = 0;
 		alarm[4] = 0;
@@ -115,7 +116,7 @@ if ( abs(xspeed) > 0 && abs(col_xspeed) >= abs(xspeed) && collisions.col_hblock)
 
 ///
 // "Solid" wall collisions and slopes
-collisions = collide_wall(xspeed+col_xspeed,yspeed+col_yspeed,5,obj_block,obj_block_jump_through);
+collisions = collideWall(xspeed+col_xspeed,yspeed+col_yspeed,5,obj_block,obj_block_jump_through);
 if ( collisions.collision ){
     //If you collided horizontally
 	if ( ( collisions.col_right || collisions.col_left )  ) {
@@ -146,22 +147,22 @@ if ( collisions.collision ){
 if ( ! collisions.col_bottom ){
 	//We WERE on the ground no we are not.
 	//Set the timer to disallow jumping
-	if ( ground_state.state ){
+	if ( ground_set.state ){
 		alarm[4] = coyote_timer;
 	}
 	//Turn on gravity cause you are floating in the air :)
-	gravity_speed = air_state.grav;
+	gravity_speed = air_set.grav;
 	//Set state to not on the ground
-	ground_state.state = false;
+	ground_set.state = false;
 	//Set jump state to state not ready ( if alarm[3] > 0 you can still jump )
 	//maybe move to alarm[3]?
-	jump_state.state = false;
+	jumping= false;
 }  //Hit the ground
 else {
 	//Reset the jump counter if just landing
 	jump_count = jump_count_max;
-	jump_state.state = true;
-	ground_state.state = true;
+	jumping= true;
+	ground_set.state = true;
 }
 
 
@@ -171,19 +172,19 @@ else {
 sprite_index = my_sprites.idle;
 
 //// On the ground
-if ( ground_state.state) {
+if ( ground_set.state) {
 	if  ( xspeed != 0 ){
 		sprite_index = my_sprites.move;
 	}
 	//Set movement properties 
-	hfriction = ground_state.hfriction;
-	accelerate = ground_state.accelerate;
-	gravity_speed= ground_state.grav;
+	hfriction = ground_set.hfriction;
+	accelerate = ground_set.accelerate;
+	gravity_speed= ground_set.grav;
 	//Reset wall state
-	wall_state.state = false;
+	wall_set.state = false;
 }
 //// In the air
-if ( ! ground_state.state){
+if ( ! ground_set.state){
 
 	// Jumping up
 	if( yspeed <= 0 ){
@@ -194,34 +195,34 @@ if ( ! ground_state.state){
 		sprite_index = my_sprites.jump_down;
 	}
 	//Set movement properties while in air
-	hfriction = air_state.hfriction;
-	accelerate = air_state.accelerate;
-	gravity_speed= air_state.grav;	
+	hfriction = air_set.hfriction;
+	accelerate = air_set.accelerate;
+	gravity_speed= air_set.grav;	
 
 	//Reset wall state
-	wall_state.state = false;
+	wall_set.state = false;
 	// Wall Slide :) 
 	if ( ( collisions.col_right || collisions.col_left ) ){
 		alarm[6] = 10;
 		if (collisions.col_right){
-			wall_state.xspeed = -2.5;
+			wall_set.xspeed = -2.5;
 			xscale = 1
 		}
 		else {
-			wall_state.xspeed = 2.5;
+			wall_set.xspeed = 2.5;
 			xscale = -1
 		}
 	}
 	if ( alarm[6] > 0 ){
 		jump_count = jump_count_max;		
-		jump_state.state = true;
-		wall_state.state = true;
+		jumping= true;
+		wall_set.state = true;
 		//SLIIIIIIDDDDDDIIIIINNNGGGGG
 		if ( yspeed > 0 ){
-			hfriction = wall_state.hfriction;
-			accelerate = wall_state.accelerate;
-			gravity_speed= wall_state.grav;
-			if yspeed > wall_state.max_yspeed then yspeed = wall_state.max_yspeed;
+			hfriction = wall_set.hfriction;
+			accelerate = wall_set.accelerate;
+			gravity_speed= wall_set.grav;
+			if yspeed > wall_set.max_yspeed then yspeed = wall_set.max_yspeed;
 			sprite_index = my_sprites.wall;
 		}
 	}

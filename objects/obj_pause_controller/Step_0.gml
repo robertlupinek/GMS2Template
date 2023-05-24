@@ -2,8 +2,8 @@
 if ( paused ){
 	// Keep getting controls inputs and operating buttons while in pause loop.
 	// All other objects will be disabled so we need to take over any required functions here.
-	input_controls();
-	operate_buttons();
+	inputControls();
+	operateButtons();
 }
 
 
@@ -25,7 +25,7 @@ if ( global.any_start_pressed || unpause )
 		}
 		
 		// Reset button configuration before creating new buttons
-		clear_buttons();
+		clearButtons();
 		with(obj_button){
 			if ( button_text == "Resume" || button_text == "Quit" ){
 				instance_destroy();
@@ -45,14 +45,14 @@ if ( global.any_start_pressed || unpause )
 		
 		/// Create pause screen buttons
 		// Reset button configuration before creating new buttons
-		clear_buttons();		
+		clearButtons();		
 		camera = view_get_camera(0);
 		cx = camera_get_view_x(camera);
 		cy = camera_get_view_y(camera);
 		cw = camera_get_view_width(camera);
 		ch = camera_get_view_height(camera);
-		b1 = create_buttons(spr_big_button,cx+cw/2,cy + 80,0,0,"Resume",true,false,trigger_button_resume);
-		b2 = create_buttons(spr_big_button,cx+cw/2,cy + 120,0,1,"Quit",false,false,trigger_button_quit);
+		b1 = createButtons(spr_big_button,cx+cw/2,cy + 80,0,0,"Resume",true,false,triggerButtonResume);
+		b2 = createButtons(spr_big_button,cx+cw/2,cy + 120,0,1,"Quit",false,false,triggerButtonQuit);
 		b1.depth = -100000;
 		b2.depth = -100000;
 		

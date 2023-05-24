@@ -4,36 +4,33 @@
 varying vec2 v_vTexcoord;
 varying vec4 v_vColour;
 
-uniform vec2 size;
-uniform float thick;
-uniform vec3 oColor;
-uniform float accuracy;
-uniform float tol;
-uniform vec4 uvs;
+uniform float u_size;
+uniform vec3 u_color;
+uniform vec2 u_texel;
 
-const float rad_circle = 6.28319;
 
 void main()
 {
-    gl_FragColor = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord );
-    bool outline = false;
- 
-    for(float i=1.0; i<=thick; i++){
-        for(float d=0.0; d<rad_circle; d+=rad_circle/accuracy){
-			vec2 check_pos = v_vTexcoord + i*vec2(cos(d)*size.x, -sin(d)*size.y);
-            vec4 datPixel =  v_vColour * texture2D( gm_BaseTexture, check_pos);
-            
-			bool out_bound = check_pos.x < uvs.r || check_pos.y < uvs.g || check_pos.x > uvs.b || check_pos.y > uvs.a; 
-			
-            if (datPixel.a>tol && gl_FragColor.a<=tol && !out_bound){
-                outline = true;
-                break;
-            }
-        }
-		if (outline) break;
+	
+    vec4 _new_color = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord );
+	vec2 _pixel_size = u_texel * u_size;
+	
+	if ( texture2D(gm_BaseTexture,v_vTexcoord).a <= 0.0 ){
+		float alpha = 0.0;
+		alpha = max(alpha, texture2D(gm_BaseTexture, vec2(v_vTexcoord.x - _pixel_size.x, v_vTexcoord.y ) ).a);
+		alpha = max(alpha, texture2D(gm_BaseTexture, vec2(v_vTexcoord.x + _pixel_size.x, v_vTexcoord.y ) ).a);
+		alpha = max(alpha, texture2D(gm_BaseTexture, vec2(v_vTexcoord.x, v_vTexcoord.y - _pixel_size.y ) ).a);
+		alpha = max(alpha, texture2D(gm_BaseTexture, vec2(v_vTexcoord.x, v_vTexcoord.y + _pixel_size.y ) ).a);
+		
+	    alpha = max(alpha, texture2D(gm_BaseTexture, vec2(v_vTexcoord.x - _pixel_size.x, v_vTexcoord.y - _pixel_size.y) ).a);
+		alpha = max(alpha, texture2D(gm_BaseTexture, vec2(v_vTexcoord.x + _pixel_size.x, v_vTexcoord.y + _pixel_size.y ) ).a);
+		alpha = max(alpha, texture2D(gm_BaseTexture, vec2(v_vTexcoord.x - _pixel_size.x, v_vTexcoord.y - _pixel_size.y ) ).a);
+		alpha = max(alpha, texture2D(gm_BaseTexture, vec2(v_vTexcoord.x + _pixel_size.x, v_vTexcoord.y + _pixel_size.y ) ).a);
+		
+		
+		if (alpha > 0.0) {
+			_new_color = vec4(u_color,1.0);
+		}
     }
-    
-    if (outline) gl_FragColor = vec4(oColor.r, oColor.g, oColor.b, 1.0);
+	gl_FragColor = _new_color;
 }
-
-

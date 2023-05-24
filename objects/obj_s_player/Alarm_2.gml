@@ -1,2 +1,0 @@
-/// @description Can take damage
-//
